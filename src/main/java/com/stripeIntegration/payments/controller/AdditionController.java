@@ -1,4 +1,4 @@
-package com.hulkhiretech.payments.controller;
+package com.stripeIntegration.payments.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
