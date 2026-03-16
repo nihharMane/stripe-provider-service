@@ -20,17 +20,17 @@ public class httpServiceCall {
 
 
     private final RestClient restClient;
-    public String makeHttpCall(HttpRequest httpRequest){
+    public ResponseEntity<String> makeHttpCall(HttpRequest httpRequest){
 
-        ResponseEntity <String> response= restClient.method(httpRequest.getHttpMethod())
+        ResponseEntity <String> httpResponse= restClient.method(httpRequest.getHttpMethod())
                 .uri(httpRequest.getUrl())
                 .headers((HttpHeaders t)-> t.addAll(httpRequest.getHttpHeaders()))
                 .body(httpRequest.getRequestData())
                 .retrieve()
                 .toEntity(String.class);
 
-        log.info("Restclient response is  " + response.getBody());
-        return  response.getBody();
+        log.info("Restclient response is  " + httpResponse.getBody());
+        return  httpResponse;
     }
     @PostConstruct
     public String init(){
