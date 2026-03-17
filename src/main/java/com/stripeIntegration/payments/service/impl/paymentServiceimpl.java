@@ -8,6 +8,7 @@ import com.stripeIntegration.payments.pojo.createPaymentRequest;
 import com.stripeIntegration.payments.pojo.StripeSessionResponse;
 import com.stripeIntegration.payments.service.helper.CreatePaymentHelper;
 import com.stripeIntegration.payments.service.interfaces.paymentService;
+import com.stripeIntegration.payments.service.ValidationService;
 import com.stripeIntegration.payments.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,25 +23,15 @@ public class paymentServiceimpl implements paymentService {
     private final httpServiceCall httpServiceCall;
     private final CreatePaymentHelper createPaymentHelper;
     private final JsonUtil jsonUtil;
+    private final ValidationService validationService;
 
 
     @Override
     public PaymentResponse createPayment(createPaymentRequest createPaymentRequest) {
         log.info("Create Payment Request: {}", createPaymentRequest);
 
-        // Minimal validation - throw StripeProviderException with 30000-series codes
-        if (createPaymentRequest == null) {
-            throw new StripeProviderException("30000", "Payment request is null");
-        }
-        if (createPaymentRequest.getSuccessUrl() == null || createPaymentRequest.getSuccessUrl().isEmpty()) {
-            throw new StripeProviderException("30001", "Success URL is missing");
-        }
-        if (createPaymentRequest.getCancelUrl() == null || createPaymentRequest.getCancelUrl().isEmpty()) {
-            throw new StripeProviderException("30002", "Cancel URL is missing");
-        }
-        if (createPaymentRequest.getLineItems() == null || createPaymentRequest.getLineItems().isEmpty()) {
-            throw new StripeProviderException("30003", "Line items are missing");
-        }
+        // Validate request using ValidationService
+        validationService.isValid(createPaymentRequest);
 
         HttpRequest httpRequest = createPaymentHelper.createHttpStripeSession(createPaymentRequest);
 
