@@ -52,5 +52,3 @@ Thumbs.db
 .factorypath
 .project
 .settings/
-bin/src/main/resources/application.properties
-bin/
