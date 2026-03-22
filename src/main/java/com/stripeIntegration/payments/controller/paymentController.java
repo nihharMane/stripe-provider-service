@@ -1,5 +1,4 @@
 package com.stripeIntegration.payments.controller;
-
 import com.stripeIntegration.payments.httpservice.HttpRequest;
 import com.stripeIntegration.payments.httpservice.httpServiceCall;
 import com.stripeIntegration.payments.pojo.PaymentResponse;
@@ -48,10 +47,12 @@ public class paymentController {
             description = "Internal server error - failed to create checkout session"
         )
     })
-    public PaymentResponse createPayment(@RequestBody createPaymentRequest createPaymentRequest) {
+     public PaymentResponse createPayment(@RequestBody createPaymentRequest createPaymentRequest) {
+
         log.info("CreatingPaymentRequest: {}", createPaymentRequest);
         PaymentResponse paymentResponse = paymentService.createPayment(createPaymentRequest);
         log.info("Response from paymentService: {}", paymentResponse);
         return paymentResponse;
     }
+
 }

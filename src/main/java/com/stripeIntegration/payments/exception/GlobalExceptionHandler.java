@@ -4,6 +4,7 @@ import com.stripeIntegration.payments.constants.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.stripeIntegration.payments.exception.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,10 +18,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(StripeProviderException.class)
     public ResponseEntity<ErrorResponse> handleStripeProvider(StripeProviderException ex) {
-        log.warn("StripeProviderException: {} - {}", ex.getErrorCode(), ex.getErrorMessage());
-        ErrorResponse resp = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resp);
+
+        log.info("StripeProviderException handler triggered");
+
+        log.warn("StripeProviderException: {} - {}", ex.getErrorCode(), ex.getMessage());
+
+        ErrorResponse resp = new ErrorResponse(ex.getErrorCode(), ex.getMessage());
+
+        return ResponseEntity.status(ex.getHttpStatus()).body(resp);
     }
+
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
@@ -28,5 +36,5 @@ public class GlobalExceptionHandler {
         ErrorResponse resp = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR.getCode(), ErrorCode.INTERNAL_SERVER_ERROR.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resp);
     }
-}
 
+}

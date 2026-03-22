@@ -5,6 +5,12 @@ package com.stripeIntegration.payments.constants;
  * All error codes follow the 30000 series pattern.
  */
 public enum ErrorCode {
+    STRIPE_API_ERROR("1001","ERROR FROM STRIPE API"),
+    STRIPE_CONNECTING_ERROR("1002","CONNECTING TO STRIPE"),
+    STRIPE_SERVICE_UNAVAILABLE("1003","STRIPE SERVICE UNAVAILABLE"),
+
+
+
     REQUEST_NULL("30000", "Payment request is null"),
     SUCCESS_URL_MISSING("30001", "Success URL is missing"),
     SUCCESS_URL_INVALID("30002", "Success URL format is invalid"),

@@ -69,22 +69,9 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-devtools</artifactId>
-		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.42</version>
-			<scope>compile</scope>
-		</dependency>
-		
+
 
 
 
